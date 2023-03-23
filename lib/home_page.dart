@@ -1,4 +1,4 @@
-import 'package:diary_app/widgets/front_view.dart';
+import 'package:diary_app/widgets/back_view.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
               child: Container(
                 // color: Colors.grey.shade300,
                 // 회색 컨테이너와 파랑색 달력 카드 위아래 갭
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 22.0),
                 child: PageView.builder(
                   controller: PageController(
                     initialPage: 0,
@@ -72,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: 12, // 12 months
-                  itemBuilder: (_, index) => FrontView(
+                  itemBuilder: (_, index) => BackView(
                     monthIndex: index + 1,
                   ),
                 ),
@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             const SizedBox(
-              height: 80.0,
+              height: 75.0,
             ),
           ],
         ),
