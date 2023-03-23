@@ -51,9 +51,9 @@ class FrontView extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        '5/31',
-                        style: TextStyle(
+                      Text(
+                        '5/${months[monthIndex]!.values.toList()[0]}',
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                       ),
