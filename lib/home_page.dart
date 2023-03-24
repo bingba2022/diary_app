@@ -1,4 +1,5 @@
 import 'package:diary_app/widgets/back_view.dart';
+import 'package:diary_app/widgets/front_view.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,6 +10,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isFrontView = true; // 디폴트를 front view로 설정
+
+  switchView() {
+    setState(() {});
+    isFrontView = !isFrontView;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,9 +80,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: 12, // 12 months
-                  itemBuilder: (_, index) => BackView(
-                    monthIndex: index + 1,
-                  ),
+                  itemBuilder: (_, index) => isFrontView
+                      ? FrontView(monthIndex: index + 1)
+                      : BackView(monthIndex: index + 1),
                 ),
               ),
             ),
@@ -152,16 +160,21 @@ class _HomePageState extends State<HomePage> {
                     // 펜 아이콘이랑 달력 아이콘 사이의 갭
                     width: 10.0,
                   ),
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    decoration: const BoxDecoration(
-                      color: Colors.black87,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.calendar_month_rounded,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: (() => switchView()),
+                    child: Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: BoxDecoration(
+                        color: isFrontView ? Colors.black87 : Colors.cyan,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        isFrontView
+                            ? Icons.calendar_month_rounded
+                            : Icons.undo_rounded,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
 
