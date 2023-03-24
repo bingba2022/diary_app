@@ -59,7 +59,26 @@ class BackView extends StatelessWidget {
                     crossAxisSpacing: 8.0,
                     mainAxisSpacing: 8.0,
                   ),
-                  itemBuilder: ((_, index) => Text('${index + 1}')),
+                  itemBuilder: ((_, index) {
+                    int day = index + 1;
+                    // 날짜 & 달이 한 자리 수 일 때 앞에 0 붙여서 날짜 형식 포맷
+                    String cDay = day < 10 ? '0$day' : '$day';
+                    String cMonth =
+                        monthIndex < 10 ? '0$monthIndex' : '$monthIndex';
+                    DateTime date = DateTime.parse('2023-$cMonth-$cDay');
+                    return Text(
+                      textAlign: TextAlign.center,
+                      '$day',
+                      style: TextStyle(
+                        // date의 weekday(mon-sun)을 가져옴
+                        color: date.weekday == DateTime.sunday
+                            ? Colors.red
+                            : date.weekday == DateTime.saturday
+                                ? Colors.blue
+                                : Colors.black,
+                      ),
+                    );
+                  }),
                 ),
               ),
               const Text(
