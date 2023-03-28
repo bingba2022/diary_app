@@ -1,6 +1,7 @@
 import 'package:diary_app/widgets/back_view.dart';
 import 'package:diary_app/widgets/front_view.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,12 +10,26 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool isFrontView = true; // 디폴트를 front view로 설정
 
+  late AnimationController controller;
+
   switchView() {
-    setState(() {});
-    isFrontView = !isFrontView;
+    setState(() {
+      if (isFrontView) {
+        controller.forward();
+      } else {
+        controller.reverse();
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
   }
 
   @override
@@ -80,9 +95,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                   scrollDirection: Axis.horizontal,
                   itemCount: 12, // 12 months
-                  itemBuilder: (_, index) => isFrontView
-                      ? FrontView(monthIndex: index + 1)
-                      : BackView(monthIndex: index + 1),
+                  itemBuilder: (_, index) => AnimatedBuilder(
+                      animation: controller,
+                      builder: (_, child) {
+                        if (controller.value >= 0.5) {
+                          isFrontView = false;
+                        } else {
+                          isFrontView = true;
+                        }
+                        return Transform(
+                          transform: Matrix4.identity()
+                            ..setEntry(3, 2, 0.001)
+                            ..rotateY(controller.value * pi),
+                          alignment: Alignment.center,
+                          child: isFrontView
+                              ? FrontView(monthIndex: index + 1)
+                              : BackView(monthIndex: index + 1),
+                        );
+                      }),
                 ),
               ),
             ),
