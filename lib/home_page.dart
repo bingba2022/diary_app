@@ -2,6 +2,7 @@ import 'package:diary_app/widgets/back_view.dart';
 import 'package:diary_app/widgets/front_view.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,6 +15,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   bool isFrontView = true; // 디폴트를 front view로 설정
 
   late AnimationController controller;
+  late DateTime now;
+  late String day;
+  late String month;
 
   switchView() {
     setState(() {
@@ -30,6 +34,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
     controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
+
+    now = DateTime.now();
+    day = now.day < 10 ? '0${now.day}' : '${now.day}';
+    month = DateFormat("MMM").format(DateTime.now()).toUpperCase();
   }
 
   @override
@@ -110,7 +118,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           alignment: Alignment.center,
                           child: isFrontView
                               ? FrontView(monthIndex: index + 1)
-                              : BackView(monthIndex: index + 1),
+                              : Transform(
+                                  transform: Matrix4.rotationY(pi),
+                                  alignment: Alignment.center,
+                                  child: BackView(monthIndex: index + 1)),
                         );
                       }),
                 ),
@@ -153,8 +164,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               'Today',
                               style: TextStyle(
                                 color: Colors.grey,
@@ -162,8 +173,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               ),
                             ),
                             Text(
-                              'MAR 23/2023',
-                              style: TextStyle(
+                              '$month $day/${now.year}',
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
