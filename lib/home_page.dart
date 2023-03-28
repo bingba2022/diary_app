@@ -207,7 +207,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       width: 50.0,
                       height: 50.0,
                       decoration: BoxDecoration(
-                        color: isFrontView ? Colors.black87 : Colors.cyan,
+                        color:
+                            isFrontView ? Colors.black87 : Colors.cyan.shade300,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(

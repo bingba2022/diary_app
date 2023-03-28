@@ -63,7 +63,10 @@ class Calendar extends StatelessWidget {
                           ? Colors.red
                           : date.weekday == DateTime.saturday
                               ? Colors.blue
-                              : Colors.black,
+                              : date.day == DateTime.now().day &&
+                                      date.month == DateTime.now().month
+                                  ? Colors.cyan.shade300
+                                  : Colors.black,
                     ),
                   );
                 }
