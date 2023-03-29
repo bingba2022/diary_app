@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // 상단바(회색)없애기
+import 'package:google_fonts/google_fonts.dart';
 import 'screens/home_page.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class DiaryApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
+        fontFamily: GoogleFonts.robotoMono().fontFamily,
       ),
       home: const HomePage(),
     );
