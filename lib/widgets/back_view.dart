@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:diary_app/calendar.dart';
+import 'package:diary_app/widgets/calendar.dart';
 import 'package:flutter/material.dart';
 
 class BackView extends StatelessWidget {

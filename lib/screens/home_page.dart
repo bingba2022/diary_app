@@ -1,3 +1,4 @@
+import 'package:diary_app/screens/add_page.dart';
 import 'package:diary_app/widgets/back_view.dart';
 import 'package:diary_app/widgets/front_view.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     now = DateTime.now();
     day = now.day < 10 ? '0${now.day}' : '${now.day}';
-    month = DateFormat("MMM").format(DateTime.now()).toUpperCase();
+    month = DateFormat("MMM").format(now).toUpperCase();
   }
 
   @override
@@ -185,16 +186,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                   const Spacer(), // 공간 만들어 줌
                   // edit button
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    decoration: const BoxDecoration(
-                      color: Colors.black87,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.edit_outlined,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddPage()));
+                    },
+                    child: Container(
+                      width: 50.0,
+                      height: 50.0,
+                      decoration: const BoxDecoration(
+                        color: Colors.black87,
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Icon(
+                        Icons.edit_outlined,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   const SizedBox(
