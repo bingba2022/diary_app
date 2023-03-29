@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AddPage extends StatelessWidget {
+class AddPage extends StatefulWidget {
   const AddPage({super.key});
 
+  @override
+  State<AddPage> createState() => _AddPageState();
+}
+
+class _AddPageState extends State<AddPage> {
+  Icon _selectedWeather = const Icon(
+    Icons.sunny,
+    color: Colors.grey,
+  );
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
@@ -43,70 +52,86 @@ class AddPage extends StatelessWidget {
               height: 5,
             ),
             IconButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 10,
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 10,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text('  SELECT WEATHER'),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(Icons.close_rounded))
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('  SELECT WEATHER'),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.close_rounded))
-                            ],
+                          ListTile(
+                            leading: const Icon(Icons.wb_sunny),
+                            title: const Text('Sunny'),
+                            onTap: () {
+                              setState(() {
+                                _selectedWeather = const Icon(Icons.wb_sunny);
+                              });
+                              Navigator.pop(context, Icon);
+                            },
                           ),
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.wb_sunny),
-                          title: const Text('Sunny'),
-                          onTap: () {
-                            Navigator.pop(context, Icon);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.cloud),
-                          title: const Text('Cloudy'),
-                          onTap: () {
-                            Navigator.pop(context, Icon);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.wb_twighlight),
-                          title: const Text('Rainny'),
-                          onTap: () {
-                            Navigator.pop(context, Icon);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.snowing),
-                          title: const Text('Snowy'),
-                          onTap: () {
-                            Navigator.pop(context, Icon);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.thunderstorm),
-                          title: const Text('Lighting'),
-                          onTap: () {
-                            Navigator.pop(context, Icon);
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ).then((value) {});
-              },
-              icon: const Icon(Icons.sunny),
-            ),
+                          ListTile(
+                            leading: const Icon(Icons.cloud),
+                            title: const Text('Cloudy'),
+                            onTap: () {
+                              setState(() {
+                                _selectedWeather = const Icon(Icons.cloud);
+                              });
+                              Navigator.pop(context, Icon);
+                            },
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.wb_twighlight),
+                            title: const Text('Rainny'),
+                            onTap: () {
+                              setState(() {
+                                _selectedWeather =
+                                    const Icon(Icons.wb_twighlight);
+                              });
+                              Navigator.pop(context, Icon);
+                            },
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.snowing),
+                            title: const Text('Snowy'),
+                            onTap: () {
+                              setState(() {
+                                _selectedWeather = const Icon(Icons.snowing);
+                              });
+                              Navigator.pop(context, Icon);
+                            },
+                          ),
+                          ListTile(
+                            leading: const Icon(Icons.thunderstorm),
+                            title: const Text('Lighting'),
+                            onTap: () {
+                              setState(() {
+                                _selectedWeather =
+                                    const Icon(Icons.thunderstorm);
+                              });
+                              Navigator.pop(context, Icon);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ).then((value) {});
+                },
+                icon: _selectedWeather),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
               child: Align(
