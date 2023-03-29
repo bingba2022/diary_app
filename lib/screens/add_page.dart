@@ -21,8 +21,25 @@ class _AddPageState extends State<AddPage> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(
+            Icons.chevron_left_outlined,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         backgroundColor: Colors.white,
         elevation: 0.5,
+        actions: [
+          IconButton(
+              onPressed: (() {}),
+              icon: const Icon(
+                Icons.check,
+                color: Colors.black,
+              ))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -69,7 +86,9 @@ class _AddPageState extends State<AddPage> {
                               children: [
                                 const Text('  SELECT WEATHER'),
                                 IconButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
                                     icon: const Icon(Icons.close_rounded))
                               ],
                             ),
